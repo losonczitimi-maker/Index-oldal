@@ -1,0 +1,137 @@
+:root { /* Színek meghatározása */
+	--fejlec_hatterszin: #0E1926;
+	--fejlec_szovegszin: white;
+	--lablec_hatterszin: #0E1926;
+	--lablec_szovegszin: white;
+	--feladat_hatterszin: #0F263F;
+	--feladat_szovegszin: #ffffff;
+}
+* {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+	font-family: Arial;
+}
+body {
+	background-color: var(--fejlec_hatterszin);
+}
+.tarolo {
+	width: calc(100vw-50px);
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	grid-template-areas:
+		"fejlecblokk"
+		"main"
+		"footer";
+}
+
+/* Fejléc beállítás */
+.fejlec-blokk {
+	display: grid;
+	position: sticky;
+	grid-area: fejlecblokk;
+	grid-template-rows: auto auto;		
+	grid-template-areas:
+		"header"
+		"nav";
+	color: var(--fejlec_szovegszin);
+	text-align: center;
+}
+
+.keret {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: auto;
+	gap: 10px;
+}
+
+.keret:hover>:not(:hover) {
+	opacity: 0.2;
+}
+
+.doboz {
+	padding: 15px 20px;
+	width: 200px;
+	height: auto;
+	border-radius: 10px;
+	transition: opacity 0.7s ease;
+	background-color: #2f2;
+}
+
+.doboz a {
+	text-decoration: none;
+	font-size: 18px;
+}
+
+/* Tárgyrész beállítás */
+main {
+	grid-area: main;
+	padding: 20px;
+	font-size: 20px;
+	font-family: monospace;
+	color: #00ff00;
+	overflow-y: auto;
+}
+section {
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: auto;
+}
+
+.feladat {
+	color: var(--feladat_szovegszin);
+	background-color: var(--feladat_hatterszin);
+	width: 100%;
+	border-radius: 10px;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.kod-magyarazat {
+	display: flex;
+	flex-direction: rows;
+	min-height: 500px;
+	padding: 10px;
+	gap: 10px;
+}
+
+.kod {
+	color: var(--feladat_szovegszin);
+	background-color: #0E1926;
+	width: 100%;
+	border-radius: 10px;
+	min-height: 100px;
+	padding: 10px;
+	width: 50%;
+}
+
+code {
+  font-family: Consolas, "Courier New", monospace;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+pre {
+  padding: 10px;
+  border-radius: 6px;
+  overflow-x: auto; /* hosszú sorok görgethetők */
+}
+
+/* Lábléc beállítás */
+footer { 
+	grid-area: footer;
+	padding: 5px;
+	text-align: center;
+	background-color: var(--lablec_hatterszin);
+	color: var(--lablec_szovegszin);
+	font-size: 14px;
+	display: flex;
+	flex-direction: column;
+}
