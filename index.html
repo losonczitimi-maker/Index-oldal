@@ -25,7 +25,7 @@
 		<main> <!-- Tárgyrész -->
 			<section>
 				<div class="feladat" id="elso">
-					Első feladat
+					1. Utak építése
 					<div class="kod-magyarazat">
 						<div class="kod">
 							<pre><code>
@@ -83,7 +83,55 @@ if __name__ == '__main__':
 						</div>
 						<div class="kod">
 							<pre><code>
-Magyarázat
+<= Beimportáljuk a sys modult, ami a python rendszerszintű funkcióit tartalmazza. A bemenet függvényünkhöz kell majd.
+
+<= Ez a függvény a standard bemenetről olvas be egy egész sort. Nagy adathalmaznál gyorsabb beolvasást biztosít.
+
+<= Saját függvény, megkeressük rekurzívan x gyökerét. Útkompresszió technikát alkalmazva nem csak megtaláljuk a gyökeret, de minden érintett csomópont szülőjét közvetlenül a gyökérre állítunk.
+
+<= Ha x nem a gyökérelem, akkor tovább keresünk
+<= Rekurzív meghívása a függvénynek
+<= Ha megvan a gyökérelem, visszatérünk az értékével
+
+<= Saját függvény, a kapott városok számát összekapcsolja úgy, hogy a „b” város gyökerét beállítja az „a” város gyökerére.
+
+<= Megkeressük a és b gyökérelemét és letároljuk
+<= Ha a két elem nem egyezik meg, akkor
+<= A belsob gyökerét az belsoa gyökerének állítjuk be.
+
+def kereso():
+<= Bekérjük a városok(n) és az utak(m) számát egy sorban. A bemenet() függvényt használjuk az adatbekéréshez, a split() segítségével pedig szóközök mentén darabolunk. A map(int, …) segítségével alakítjuk integerré a kapott értékeket.
+
+
+<= A program minden pontjából elérhető változót fogunk felhasználni a városok számára „szulok” néven.
+<= A szulok listába beleteszünk 0-tól n-ig számokat. Az n-edik elem miatt kell az (n+1). A sorszámok a városokat reprezentálják.
+
+
+<= Egy ciklust indítunk, ami pontosan „m” alkalommal fut le. Ez az utak száma.
+<= A bemenet() függvényt használjuk az adatbekéréshez, a split() segítségével pedig szóközök mentén darabolunk. A map(int, …) segítségével alakítjuk integerré a kapott értékeket.
+<= A beolvasott értékeket, ami az összekapcsolandó városok száma, átadjuk az osszekapcsol() fuggvénynek.
+
+
+<= Létrehozunk egy üres dictionary-t. Elemei listák lesznek. A kulcs egy gyökérelem lesz, míg az érték egy lista, ami azokat az elemeket tartalmazza, amiknek a gyökéreleme a kulcs.
+<= Ciklust indítunk, ami 1-től „n”-ig fog lefutni.
+<= A kezdopont változó értékét beállítjuk az i-edik elem gyökérelemére a keres() függvény segítségével.
+<= Ha a kezdopont változó aktuális értéke, azaz a gyökérelem nincs benne az elemek dictionaryban, akkor 
+<= Létrehozunk egy új kulcsot üres listával. A kulcs az új gyökérelem.
+<= Hozzáadjuk az aktuális elemet ahhoz a listához, amelyik kulcsa az ő gyökéreleme.
+
+
+<= Ez egy összetett utasítás. Az „elemek.values()” az elemek szótár összes értékét veszi, amik listák. A „for varosok in elemek.values()” végigmegy minden ilyen listán. A „sorted(varosok)” pedig sorba rendezi az adott listát növekvő sorrendben. Tehát a „komponensek” lista a benne lévő listákban növekvő sorrendbe fogja tartalmazni a városok számát.
+
+
+<= A „k” változó a komponensek lista hossza mínusz 1 értékű lesz. Ez a szükséges utak száma ahhoz, hogy minden város össze legyen kötve.
+<= kiírjuk a „k” változó értékét.
+
+
+<= Ciklust indítunk, ami „k” alkalommal fog lefutni
+<= Kiíratjuk a „komponens” lista „i”-edik listájának utolsó elemét és a „komponens” lista „i+1”-edik listájának első elemét. Egy lista első eleme a [0], az utolsó eleme a [-1].
+
+<= itt kezdődik a programunk futása
+<= meghívjuk a kereso() függvényt.
 							
 							</code></pre>
 						</div>
@@ -93,17 +141,79 @@ Magyarázat
 			</section>
 			<section>
 				<div class="feladat" id="masodik">
-					Második feladat
+					2. Projektek
 					<div class="kod-magyarazat">
 						<div class="kod">
 							<pre><code>
-							
+import sys
+import bisect
+
+def feladat():
+    bemenet = sys.stdin.readline
+    szam = int(bemenet())
+    projects = []
+    for i in range(szam):
+        a, b, p = map(int, bemenet().split())
+        projects.append((a, b, p))
+
+    # Rendezés befejezési idő szerint
+    projects.sort(key=lambda x: x[1])
+
+    # Külön listába szedjük a befejezési időket
+    befejezesiido = [p[1] for p in projects]
+
+    # Eredmeny: eredmeny[i] = max jutalom az első i projektből
+    eredmeny = [0] * (szam + 1)
+
+    for i in range(1, szam + 1):
+        a, b, p = projects[i - 1]
+        # keresés: legnagyobb j, ahol projects[j].end < a
+        j = bisect.bisect_right(befejezesiido, a - 1)
+        # két lehetőség: kihagyjuk vagy bevesszük
+        eredmeny[i] = max(eredmeny[i - 1], eredmeny[j] + p)
+
+    print(eredmeny[szam])
+
+
+if __name__ == "__main__":
+    feladat()							
 							
 							</code></pre>
 						</div>
 						<div class="kod">
 							<pre><code>
-Magyarázat
+<= Beimportáljuk a sys modult, ami a python rendszerszintű funkcióit tartalmazza. A bemenet függvényünkhöz kell majd.
+<= Beimportáljuk a bisect modult. Ez egy bináris keresésen alapuló segédmodul, amelyet rendezett listák kezelésére használhatunk.
+
+
+<= Ez a függvény a standard bemenetről olvas be egy egész sort. Nagy adathalmaznál gyorsabb beolvasást biztosít.
+<= A beolvasott adatot integer típussá alakítjuk típuskényszerítéssel. Ez lesz a projektek száma.
+<= létrehozunk egy listát „projects” néven.
+<= Ciklust indítunk, ami „szam” alkalommal, azaz a projektek számaszor fog lefutni.
+<= Bekérjük az indulás napját (a), a befejezés napját(b) és a jutalom összegét (p) egy sorban. A bemenet() függvényt használjuk az adatbekéréshez, a split() segítségével pedig szóközök mentén darabolunk. A map(int, …) segítségével alakítjuk integerré a kapott értékeket.
+<= A „projects” listához hozzáadjuk az (a, b, p) számhármast, tuple-t.
+
+
+<= A „projects” listát rendezi, méghozzá a második elem szerint, amit a „key=lambda x: x[1]” utasítással adunk meg. Tehát a lista a befejezési idő szerint lesz rendezve. Ez gyorsrendezés (O(n log n)).
+
+
+<= Csinálunk egy új listát „befejezesiido” néven, ami csak a „projects” listában lévő tuple-ök második elemét fogja tartalmazni, amire a p[1] utal. Tehát csak a befejezési idők lesznek benne, hogy gyorsan tudjunk majd keresni.
+
+
+<= Létrehozunk egy „szam+1” elemű, azaz projekt szám +1 elemű listát, aminek minden eleme nulla [0].
+
+<= Ciklust indítunk, ami 1-től „szam+1”-ig fog lefutni, azaz a projektek számányiszor.
+<= Ezekbe a csak a for ciklusban élő a, b és p változókba belerakjuk az aktuális projekt adatait, a kezdés napját, a befejezés napját és a jutalom összegét. Az [i-1] miatt a ciklusváltozóhoz képest 1-el kisebb pozíciójú elemet vizsgálunk, hiszen a ciklus is 1-től indult, nem pedig 0-tól.
+
+<= Megkeressük, melyik az utolsó projekt, ami nem ütközik. Ez bináris keresés (O(log n)) egy rendezett listán. A rendezett lista amiben keresünk a „befejezesiido”, az „a-1” pedig az aktuális kezdési időhöz képest 1 nap mínusz, hogy ne legyen átfedés a projektek között. A „j” tehát azt az indexet tartalmazza, ahová az „a-1” értéket be lehetne szúrni jobbról, hogy a sorrend megmaradjon.
+
+<= Vesszük az előző maximumot az  [i-1] pozícióból, illetve az előzőleg kiszámolt „j” indexű elem jutalmát plusz a jelenlegi projekt jutalmát és kiválasztjuk a nagyobb összeget. Ezt az összeget rakjuk az „eredmeny” lista aktuális pozíciójába.
+
+<= Kiírjuk a maximális jutalmat, azaz a lista utolsó elemét.
+
+
+<= itt kezdődik a programunk futása
+<= meghívjuk a feladat() függvényt.
 							
 							</code></pre>
 						</div>
@@ -113,11 +223,28 @@ Magyarázat
 			</section>
 			<section>
 				<div class="feladat" id="harmadik">
-					Harmadik feladat
+					3. Számjegy lekérdezések
 					<div class="kod-magyarazat">
 						<div class="kod">
 							<pre><code>
-							
+def lekerdezes(k, hossz=1, kiindulo_pozicio=1):
+    # Aktuális blokk mérete (hány számjegy van ebben a blokkban)
+    blokk_meret = (9 * kiindulo_pozicio * hossz)
+    if k <= blokk_meret:
+        # Megtaláltuk a blokkot
+        szam_pozicio = (k - 1) // hossz
+        szamjegy_helye = (k - 1) % hossz
+        szam = kiindulo_pozicio + szam_pozicio
+        return str(szam)[szamjegy_helye]
+    else:
+        # Lépjünk a következő blokkra rekurzívan
+        return lekerdezes(k - blokk_meret, hossz + 1, kiindulo_pozicio * 10)
+
+# Bemenet beolvasása
+lekerdezesek_szama = int(input().strip())  # lekérdezések száma
+for _ in range(lekerdezesek_szama):
+    k = int(input().strip())
+    print(lekerdezes(k))					
 							
 							</code></pre>
 						</div>
@@ -133,11 +260,33 @@ Magyarázat
 			</section>
 			<section>
 				<div class="feladat" id="negyedik">
-					Negyedik feladat
+					4. Legközelebbi kisebb értékek
 					<div class="kod-magyarazat">
 						<div class="kod">
 							<pre><code>
-							
+import sys
+
+def keres():
+    dbszam = int(sys.stdin.readline())
+    szamtarolo = list(map(int, sys.stdin.readline().split()))
+
+    eredmeny = [0] * dbszam
+    tarolo = []  # (érték, index)
+
+    for index, ertek in enumerate(szamtarolo):
+        while tarolo and tarolo[-1][0] >= ertek:
+            tarolo.pop()
+        if tarolo:
+            eredmeny[index] = tarolo[-1][1] + 1
+        else:
+            eredmeny[index] = 0
+        tarolo.append((ertek, index))
+
+    print(" ".join(map(str, eredmeny)))
+
+
+if __name__ == "__main__":
+    keres()							
 							
 							</code></pre>
 						</div>
