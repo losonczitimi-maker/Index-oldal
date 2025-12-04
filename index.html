@@ -250,7 +250,25 @@ for _ in range(lekerdezesek_szama):
 						</div>
 						<div class="kod">
 							<pre><code>
-Magyarázat
+<= Saját függvény, az első bemeneti „k” paraméter a keresett pozíció száma a végtelen karaktersorban, a „hossz” paraméter azt írja le, hogy hány számjegyű számokat vizsgálunk éppen, a „kiindulo_pozicio” az aktuális blokk kezdőszáma.  A második és harmadik paraméter alapértéke 1 lesz, ha nincs megadva a függvény meghívásakor. 
+
+<= A „blokk_meret” változót beállítjuk a paraméterek alapján.
+<= Ha a keresett pozíció kisebb, vagy egyenlő, mint a „blokk_meret”, akkor
+
+<= A „szam_pozicio” változó értéke legyen a keresett pozíció -1 osztva a „hossz” értékkel egész számra csonkolva.
+<= A „szamjegy_helye” változó értéke legyen a keresett pozíció -1 és a „hossz” osztásának maradéka.
+<= A „szam” változó legyen a „kiindulo_pozicio” és a „szam_pozicio” összege.
+<= Átalakítja a „szam” változót sztringgé, majd visszatér ennek a szövegnek a „szamjegy_helye” pozíciójában lévő karakterrel.
+<= Különben
+
+<= rekurzívan meghívja saját magát úgy, hogy a keresett pozíciót csökkenti az aktuális blokkmérettel, a számjegy hosszak számát növeli eggyel és a blokk kezdőszámát tízszeresére növeli.
+
+
+<= A program innen indul. Bekérjük a lekérdezések számát billentyűzetről. A .strip() eltávolítja a whitespace karaktereket (szóköz, tab, újsor, stb.) majd átalakítjuk integerré.
+<= Egy ciklust indítunk, ami pontosan a „lekerdezesek_szama” alkalommal fut le.
+<= A lekérdezendő szám pozícióját bekérjük a billentyűzetről. Whitespace karaktereket eltávolíttatjuk és integerré alakítjuk a kapott karaktersort.
+<= A lekerdezes() függvényt futtatjuk az előbb bevitt integer átadásával.
+
 							
 							</code></pre>
 						</div>
@@ -292,7 +310,29 @@ if __name__ == "__main__":
 						</div>
 						<div class="kod">
 							<pre><code>
-Magyarázat
+<= Beimportáljuk a sys modult, ami a python rendszerszintű funkcióit tartalmazza.
+
+<= Saját függvény, ami megkeresi az adott pozícióban lévő szám balra lévő legközelebbi kisebb szomszédját.
+<= A standard bemenetről olvas be egy egész sort. A tömbünk méretét adja meg.
+<= Bekérjük a tömbünkben lévő számokat a standard bemenetről egy sorban. A split() segítségével szóközök mentén darabolunk. A map(int, …) segítségével alakítjuk integerré a kapott értékeket. Ezeket a számokat a „szamtarolo” listába tesszük.
+
+<= Létrehozunk egy „dbszam” elemű listát 0 értékekkel.
+<= Létrehozunk „tarolo” nevű listát, amiben két értékből álló csomagot, tuple-t fogunk tárolni.
+
+<= Végigiterálunk a „szamtarolo” listán úgy, hogy megkapjuk az „index” változóba a sorszámot és az „ertek” változóba az aktuális helyen lévő értéket.
+<= addig futtatjuk a ciklust, amíg a „tarolo” lista nem üres ÉS az utolsó elemének [-1] első komponense [0] nagyobb vagy egyenlő, mint az „ertek”
+<= Töröljük az utolsó elemet és visszakapjuk a pozícióját, hogy honnan törölt.
+<= Ha van még adat a „tarolo” listánkban, akkor
+<= Az aktuális „index”-ű pozícióba betesszük a „tarolo” listában lévő utolsó elem [-1] második komponensének [1] értékét növelve +1-el.
+<= Különben…
+<= Az aktuális „index”-ű pozícióba 0-át írunk.
+<= Hozzáadjuk az „ertek” és „index” csomagunkat a „tarolo” listához.
+
+<= Az „eredmeny” lista elemeit először sztringgé alakítjuk map(str, eredmeny), majd összefűzzük őket szóközzel elválasztva .join(...), végül kiíratjuk a kapott szöveget a képernyőre.
+
+
+<= itt kezdődik a programunk futása
+<= meghívjuk a keres () függvényt.
 							
 							</code></pre>
 						</div>
