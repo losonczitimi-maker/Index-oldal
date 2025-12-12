@@ -93,6 +93,10 @@ section {
 	flex-direction: column;
 }
 
+.feladat a {
+	color: white;
+}
+
 .kod-magyarazat {
 	display: flex;
 	flex-direction: rows;
